@@ -43,10 +43,10 @@ namespace HackAssembler
             string szCleanInstr = "";
             for (int i=0; i< szInstr.Length; i++)
             {
+                if ((i < szInstr.Length - 1) && (szInstr[i] == '/') && (szInstr[i + 1] == '/'))
+                    break;
                 if (!char.IsWhiteSpace(szInstr[i]))
                     szCleanInstr += szInstr[i];
-                if ((i< szInstr.Length-1) && (szInstr[i] == '/') && (szInstr[i + 1] == '/'))
-                    break;
             }
             szCurrentInstruction = string.Format(szCleanInstr);
             return 0;

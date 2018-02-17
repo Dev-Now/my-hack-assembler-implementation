@@ -7,11 +7,15 @@ namespace HackAssembler
     class Code
     {
         private Dictionary<string, string> cCodeDict;
+        private Dictionary<string, string> cDestDict;
+        private Dictionary<string, string> cJumpDict;
 
         // Constructor
         public Code()
         {
             cCodeDict = new Dictionary<string, string>();
+            cDestDict = new Dictionary<string, string>();
+            cJumpDict = new Dictionary<string, string>();
 
             // Add comp code dictionnary values
             cCodeDict.Add("0",      "0101010");
@@ -44,32 +48,32 @@ namespace HackAssembler
             cCodeDict.Add("D|M",    "1010101");
 
             // Add dest code dictionnary values
-            cCodeDict.Add("null",   "000");
-            cCodeDict.Add("M",      "001");
-            cCodeDict.Add("D",      "010");
-            cCodeDict.Add("MD",     "011");
-            cCodeDict.Add("A",      "100");
-            cCodeDict.Add("AM",     "101");
-            cCodeDict.Add("AD",     "110");
-            cCodeDict.Add("AMD",    "111");
+            cDestDict.Add("null",   "000");
+            cDestDict.Add("M",      "001");
+            cDestDict.Add("D",      "010");
+            cDestDict.Add("MD",     "011");
+            cDestDict.Add("A",      "100");
+            cDestDict.Add("AM",     "101");
+            cDestDict.Add("AD",     "110");
+            cDestDict.Add("AMD",    "111");
 
             // Add jump code dictionnary values
-            cCodeDict.Add("null",   "000");
-            cCodeDict.Add("JGT",    "001");
-            cCodeDict.Add("JEQ",    "010");
-            cCodeDict.Add("JGE",    "011");
-            cCodeDict.Add("JLT",    "100");
-            cCodeDict.Add("JNE",    "101");
-            cCodeDict.Add("JLE",    "110");
-            cCodeDict.Add("JMP",    "111");
+            cJumpDict.Add("null",   "000");
+            cJumpDict.Add("JGT",    "001");
+            cJumpDict.Add("JEQ",    "010");
+            cJumpDict.Add("JGE",    "011");
+            cJumpDict.Add("JLT",    "100");
+            cJumpDict.Add("JNE",    "101");
+            cJumpDict.Add("JLE",    "110");
+            cJumpDict.Add("JMP",    "111");
         }
 
         public string translateCInstr(string[] szEltsCInstr)
         {
             // 111 comp dest jump
             return ("111"+  cCodeDict[szEltsCInstr[Convert.ToInt32(C_INSTR_ELTS.eCOMP)]] +
-                            cCodeDict[szEltsCInstr[Convert.ToInt32(C_INSTR_ELTS.eDEST)]] +
-                            cCodeDict[szEltsCInstr[Convert.ToInt32(C_INSTR_ELTS.eJUMP)]] );
+                            cDestDict[szEltsCInstr[Convert.ToInt32(C_INSTR_ELTS.eDEST)]] +
+                            cJumpDict[szEltsCInstr[Convert.ToInt32(C_INSTR_ELTS.eJUMP)]] );
         }
 
         public string translateAInstr(string szAddrAInstr)

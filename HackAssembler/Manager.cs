@@ -13,15 +13,20 @@ namespace HackAssembler
             // -- check the file extention is asm
             if(szFile.Substring(szFile.Length-4)!=".asm")
             {
-                Console.WriteLine("Manager.Main: Error! the received file doesn't have the right extention.");
+                Console.WriteLine("Manager.Main: Error! the received file doesn't have the right extension.");
                 return 1;
             }
             // -- create the symbol table
             SymbolTable cSymbTab = new SymbolTable();
             // -- create generated code string
             string szGenCode = "";
-            // -- open file and read it line by line
+            // -- check the file exists
+            if (!File.Exists(@szFile)) {
+                Console.WriteLine("Manager.Main: Error! the received file doesn't exist.");
+                return 1;
+            }
             FileInfo fAsm = new FileInfo(@szFile);
+            // -- open file and read it line by line
             using (StreamReader fsAsm = fAsm.OpenText())
             {
                 // First pass
@@ -43,6 +48,7 @@ namespace HackAssembler
                 // Second pass
                 cParser.Init();
                 fsAsm.DiscardBufferedData();
+                fsAsm.BaseStream.Seek(0, SeekOrigin.Begin);
                 Code cCode = new Code();
                 while ((szCurrLine = fsAsm.ReadLine()) != null)
                 {

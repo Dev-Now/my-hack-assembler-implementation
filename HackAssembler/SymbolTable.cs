@@ -61,8 +61,11 @@ namespace HackAssembler
             int nAddr;
             if (!int.TryParse(szVarName, out nAddr))
             {
-                cMainSymbolTable.Add(szVarName, nVarDefValue);
-                nVarDefValue++;
+                if(!HasSymbol(szVarName))
+                {
+                    cMainSymbolTable.Add(szVarName, nVarDefValue);
+                    nVarDefValue++;
+                }
             }          
             return 0;
         }
