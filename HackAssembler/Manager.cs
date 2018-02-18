@@ -37,11 +37,7 @@ namespace HackAssembler
                     cParser.NewInstr(szCurrLine, true);
                     if (cParser.IsLabelDefinition())
                     {
-                        cSymbTab.AddLabel(cParser.GetLblName(), cParser.GetInstrNum() + 1);
-                    }
-                    else if(cParser.IsAInstruction())
-                    {
-                        cSymbTab.AddVar(cParser.GetAInstrElts());
+                        cSymbTab.AddLabel(cParser.GetLblName(), cParser.GetInstrNum());
                     }
                 }
 
@@ -56,6 +52,7 @@ namespace HackAssembler
                     if (cParser.IsAInstruction())
                     {
                         string szAddr = cParser.GetAInstrElts();
+                        cSymbTab.AddVar(szAddr);
                         if (cSymbTab.HasSymbol(szAddr)) { szAddr = cSymbTab.FetchVal(szAddr).ToString(); }
                         szGenCode += string.Format("{0}\n", cCode.translateAInstr(szAddr));
                     }

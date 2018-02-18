@@ -65,8 +65,11 @@ namespace HackAssembler
                 bIsCInstr = bIsLblDef = false;
                 // increment instruction number
                 nInstrNumber++;
-                // extract its elements
-                szAddrAInstr = szCurrentInstruction.Substring(1);
+                if (!bFirstPass)
+                {
+                    // extract its elements
+                    szAddrAInstr = szCurrentInstruction.Substring(1);
+                }
             }
             else if(szCurrentInstruction[0] == '(')
             {
@@ -97,8 +100,8 @@ namespace HackAssembler
                     }
                     else
                     {
-                        szEltsCInstr[1] = "0";
-                        szEltsCInstr[0] = (szElts[0] != "0") ? szElts[0] : "null";
+                        szEltsCInstr[0] = "null";
+                        szEltsCInstr[1] = szElts[0];
                     }
                 }
             }

@@ -20,7 +20,7 @@ namespace HackAssembler
             // Add comp code dictionnary values
             cCodeDict.Add("0",      "0101010");
             cCodeDict.Add("1",      "0111111");
-            cCodeDict.Add("-1",     "0101010");
+            cCodeDict.Add("-1",     "0111010");
             cCodeDict.Add("D",      "0001100");
             cCodeDict.Add("A",      "0110000");
             cCodeDict.Add("M",      "1110000");
