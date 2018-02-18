@@ -69,11 +69,10 @@ namespace HackAssembler
 
             // The generated code is written into a text file named XXX.hack
             // ASSUMPTION: XXX.asm is error free
+            string szOutFile = szFile.Substring(0, szFile.Length - 3); // truncate asm extension
+            szOutFile+="hack"; // update with hack extension
+            File.WriteAllText(@szOutFile, szGenCode.Substring(0, szGenCode.Length - 1));
 
-            
-
-            Console.Write(szGenCode);
-            Console.ReadLine();
             return 0;
         }
     }

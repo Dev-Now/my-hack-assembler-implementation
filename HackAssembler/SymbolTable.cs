@@ -51,7 +51,8 @@ namespace HackAssembler
         // (XXX)
         public int AddLabel(string szLblName, int nLblValue)
         {
-            cMainSymbolTable.Add(szLblName, nLblValue);
+            if (!HasSymbol(szLblName))  cMainSymbolTable.Add(szLblName, nLblValue);
+            else                        cMainSymbolTable[szLblName] = nLblValue; // label has priority
             return 0;
         }
 
