@@ -80,13 +80,13 @@ namespace HackAssembler
         {
             int nAddr = Convert.ToInt32(szAddrAInstr);
             char[] bits = new char[15];
-            int i = 0;
+            bits = "000000000000000".ToCharArray();
+            int i = bits.Length-1;
             while (nAddr != 0)
             {
-                bits[i++] = (nAddr & 1) == 1 ? '1' : '0';
+                bits[i--] = (nAddr & 1) == 1 ? '1' : '0';
                 nAddr >>= 1;
             }
-            Array.Reverse(bits, 0, i);
             return ("0" + new string(bits));
         }
     }

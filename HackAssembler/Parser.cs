@@ -19,10 +19,10 @@ namespace HackAssembler
 
         private string szAddrAInstr;
         private string szLblName;
-        private string[] szEltsCInstr;
+        private string[] szEltsCInstr = new string[3] { "", "", "" };
         public string GetAInstrElts() { return (bIsAInstr? szAddrAInstr : ""); }
         public string GetLblName() { return (bIsLblDef? szLblName : ""); }
-        public string[] GetCInstrElts() { return (bIsCInstr? szEltsCInstr : new String[] { }); }
+        public string[] GetCInstrElts() { return (bIsCInstr? szEltsCInstr : new String[3] { "", "", "" }); }
 
         public Parser()
         {
@@ -87,7 +87,19 @@ namespace HackAssembler
                 // extract its elements
                 if (!bFirstPass)
                 {
-                    szEltsCInstr = szCurrentInstruction.Split("=;".ToCharArray());
+                    string[] szElts = szCurrentInstruction.Split(";".ToCharArray());
+                    if (szElts.Length == 2) szEltsCInstr[2] = szElts[1]; else szEltsCInstr[2] = "null";
+                    szElts = szElts[0].Split("=".ToCharArray());
+                    if (szElts.Length == 2)
+                    {
+                        szEltsCInstr[0] = szElts[0];
+                        szEltsCInstr[1] = szElts[1];
+                    }
+                    else
+                    {
+                        szEltsCInstr[1] = "0";
+                        szEltsCInstr[0] = (szElts[0] != "0") ? szElts[0] : "null";
+                    }
                 }
             }
 
